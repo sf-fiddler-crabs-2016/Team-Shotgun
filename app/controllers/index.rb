@@ -62,4 +62,13 @@ post '/logout' do
   redirect '/login'
 end
 
+post '/search' do
+  @leader = User.find_by(user_name: params[:leader])
+  redirect "/users/#{@leader.id}/show"
+end
 
+
+get '/users/:id/show' do
+  @tweets = Tweet.where(user_id: params[:id])
+  erb :users_profile_public
+end
